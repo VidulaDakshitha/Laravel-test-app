@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use DB;
 
 class PostController extends Controller
 {
@@ -35,7 +36,14 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $check1=$request->get('Username');
+
+        $posts=DB::table('posts')->where('username',$check1)->get();
+
+        
         $post = new Post;
+        if(count($posts)==0)
+        {
         $post->fullname = $request->input('Name');
         $post->gender = $request->input('Gender');
         $post->dob = $request->input('dob');
@@ -49,9 +57,15 @@ class PostController extends Controller
         $post->password = $request->input('Password');
 
         $post->save();
+        
 
         // return redirect('/posts');
         return redirect('/register')->with('success','successfully registered');
+        }
+        else
+        {
+            return redirect('/register')->with('error','Username already exists please enter a new one');
+        }
 
     }
 

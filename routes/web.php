@@ -56,9 +56,6 @@ Route::post('check2','SampleController@search');
 
 Route::post('check3','SearchController@search');
 
+Route::get('/about/{id}', 'SampleController@userprofile');
 Route::put('/about/{id}', 'SampleController@update');
-
 Route::delete('/about2/{id}', 'SampleController@destroy');
-
-
-

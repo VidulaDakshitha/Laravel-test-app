@@ -8,6 +8,7 @@ use App\Post;
 
 class SampleController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -84,7 +85,7 @@ class SampleController extends Controller
         $result->save();
 
         // return redirect()->action('SampleController@update',['id'=>$id]);
-        return redirect('/about');
+        return redirect("/about/".$id);
     }
 
     /**
@@ -109,6 +110,13 @@ class SampleController extends Controller
        // $search2=$request->get('pnumber');
 
         $result=DB::table('posts')->where('phone',$search1)->first();
+        return view('patientManagement.userProfile',compact('result'));
+    }
+
+
+    public function userprofile($id)
+    {        
+        $result = Post::find($id);
         return view('patientManagement.userProfile',compact('result'));
     }
 }
